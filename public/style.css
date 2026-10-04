@@ -1,0 +1,105 @@
+/* VoxelCraft — full UI stylesheet. No frameworks. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+#game { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; outline: none; }
+
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#ui-root { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+#hud { position: absolute; inset: 0; pointer-events: none; }
+
+#crosshair { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+#crosshair span { position: absolute; background: #fff; }
+#crosshair span:first-child { left: 50%; top: 2px; bottom: 2px; width: 2px; transform: translateX(-50%); }
+#crosshair span:last-child { top: 50%; left: 2px; right: 2px; height: 2px; transform: translateY(-50%); }
+
+#break-progress { position: absolute; left: 50%; top: calc(50% + 26px); width: 90px; height: 6px; transform: translateX(-50%); background: rgba(0,0,0,0.45); border-radius: 3px; overflow: hidden; }
+#break-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #7cf, #4f8); transition: width 0.05s linear; }
+
+#hotbar { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; background: rgba(0,0,0,0.35); padding: 5px; border-radius: 8px; }
+.slot { width: 48px; height: 48px; background: rgba(80,80,90,0.55); border: 2px solid rgba(255,255,255,0.18); border-radius: 6px; position: relative; display: flex; align-items: center; justify-content: center; }
+.slot.selected { border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.55); background: rgba(120,120,135,0.7); }
+.slot .count { position: absolute; right: 4px; bottom: 2px; font-size: 13px; font-weight: 700; color: #fff; text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000; }
+.item-icon { width: 38px; height: 38px; image-rendering: pixelated; }
+
+#health-bar, #hunger-bar { position: absolute; bottom: 74px; display: flex; gap: 2px; font-size: 17px; text-shadow: 1px 1px 0 #000; }
+#health-bar { left: calc(50% - 190px); }
+#hunger-bar { right: calc(50% - 190px); }
+.heart.empty, .food.empty { opacity: 0.35; filter: grayscale(1); }
+
+/* ---------- Debug (F3) ---------- */
+#debug { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.55); color: #fff; font: 12px/1.55 'Consolas', monospace; padding: 8px 12px; border-radius: 6px; white-space: pre; max-width: 45vw; }
+
+/* ---------- Chat ---------- */
+#chat-log { position: absolute; left: 10px; bottom: 90px; max-width: 55vw; display: flex; flex-direction: column; gap: 2px; }
+.chat-line { background: rgba(0,0,0,0.45); color: #eee; padding: 3px 8px; border-radius: 4px; font-size: 13px; width: fit-content; }
+.chat-line.error { color: #ff8080; }
+#chat-input-wrap { position: absolute; left: 10px; bottom: 60px; pointer-events: auto; }
+#chat-input { width: min(560px, 60vw); padding: 8px 10px; font-size: 14px; background: rgba(0,0,0,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; outline: none; }
+
+#toast { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 18px; border-radius: 20px; font-size: 14px; opacity: 0; transition: opacity 0.3s; }
+#toast.show { opacity: 1; }
+
+/* ---------- Overlays ---------- */
+#water-overlay { position: absolute; inset: 0; background: rgba(20, 70, 160, 0.35); pointer-events: none; }
+#damage-overlay { position: absolute; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(200,0,0,0.55)); pointer-events: none; }
+#flash-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.65); pointer-events: none; }
+
+/* ---------- Inventory screen ---------- */
+#inventory-screen { position: absolute; inset: 0; background: rgba(10,10,15,0.72); display: flex; align-items: center; justify-content: center; pointer-events: auto; }
+#inv-panel { background: #2b2b33; border: 3px solid #17171c; border-radius: 10px; padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+.inv-title { color: #fff; font-size: 18px; font-weight: 700; }
+.inv-title span { color: #9fd; font-weight: 400; font-size: 13px; margin-left: 8px; }
+#craft-area { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.craft-label { color: #bbb; font-size: 12px; width: 100%; }
+#craft-grid { display: grid; gap: 4px; }
+#craft-arrow { color: #fff; font-size: 22px; }
+.slot.big { width: 60px; height: 60px; background: rgba(140,120,60,0.4); border-color: rgba(255,220,120,0.4); cursor: pointer; }
+.slot.big:hover { border-color: #ffd97a; }
+#btn-craft-3 { display: none; }
+#inv-main { display: grid; grid-template-columns: repeat(9, 48px); gap: 4px; }
+#inv-hotbar { display: grid; grid-template-columns: repeat(9, 48px); gap: 4px; padding-top: 8px; border-top: 2px solid #17171c; }
+#creative-palette { display: grid; grid-template-columns: repeat(9, 48px); gap: 4px; padding-bottom: 8px; border-bottom: 2px dashed #555; }
+.palette-slot { cursor: pointer; }
+.palette-slot:hover { border-color: #7cf; }
+.inv-hint { color: #888; font-size: 12px; }
+.slot:not(.selected):hover { border-color: rgba(255,255,255,0.5); }
+#cursor-stack { position: fixed; width: 44px; height: 44px; pointer-events: none; display: none; z-index: 100; }
+#cursor-stack .count { position: absolute; right: 2px; bottom: 0; color: #fff; font-weight: 700; font-size: 13px; text-shadow: 1px 1px 0 #000; }
+
+/* ---------- Pause ---------- */
+#pause-screen { position: absolute; inset: 0; background: rgba(5,5,10,0.6); display: flex; align-items: center; justify-content: center; pointer-events: auto; }
+#pause-panel { background: #23232b; border-radius: 12px; padding: 30px 40px; display: flex; flex-direction: column; gap: 12px; align-items: center; min-width: 380px; }
+#pause-panel h1 { color: #fff; letter-spacing: 2px; margin-bottom: 8px; }
+#pause-panel button { width: 100%; padding: 12px; font-size: 15px; border: none; border-radius: 6px; background: #4a7; color: #fff; cursor: pointer; font-weight: 600; }
+#pause-panel button:hover { filter: brightness(1.15); }
+#pause-panel button:nth-child(3) { background: #48a; }
+#pause-panel button:nth-child(4) { background: #a45; }
+#pause-help { color: #999; font-size: 12px; line-height: 1.7; margin-top: 10px; text-align: center; }
+#pause-help b { color: #ccc; }
+
+/* ---------- Main menu ---------- */
+#menu-screen { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(rgba(10,20,35,0.55), rgba(5,8,16,0.8)), repeating-conic-gradient(#3b5323 0% 25%, #46602c 0% 50%) 0 0 / 64px 64px;
+  font-family: inherit; }
+#menu-panel { width: min(560px, 92vw); background: rgba(20,22,30,0.92); border: 2px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 34px 38px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
+.logo { color: #fff; font-size: 42px; letter-spacing: 3px; text-shadow: 3px 3px 0 #2a4d2a; }
+.logo span { color: #7bd87b; }
+.tagline { color: #9aa4b5; font-size: 13px; margin-top: -10px; }
+.new-world { display: flex; flex-direction: column; gap: 10px; }
+.new-world input, .new-world select { padding: 11px 12px; border-radius: 6px; border: 1px solid #445; background: #161923; color: #eee; font-size: 14px; outline: none; }
+.new-world input:focus { border-color: #7bd87b; }
+#btn-create { padding: 13px; border: none; border-radius: 6px; background: linear-gradient(#5cb85c, #449e44); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 1px; }
+#btn-create:hover { filter: brightness(1.1); }
+#world-list { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
+.world-row { display: flex; align-items: center; gap: 8px; background: #1b1f2b; border-radius: 6px; padding: 10px 12px; }
+.world-info { flex: 1; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.world-info:hover { color: #8fc9ff; }
+.world-info b { color: #eee; font-size: 15px; }
+.world-info span { color: #778; font-size: 12px; }
+.world-del { background: #5a2b2b; border: none; color: #faa; width: 30px; height: 30px; border-radius: 5px; cursor: pointer; }
+.world-del:hover { background: #7a3b3b; }
+.world-empty { color: #667; font-style: italic; padding: 8px 0; }
+.menu-footer { color: #556; font-size: 11px; text-align: center; line-height: 1.6; }
