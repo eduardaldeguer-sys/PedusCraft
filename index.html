@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoxelCraft — Minecraft in your browser</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="ui-root"></div>
+
+  <div id="menu-screen">
+    <div id="menu-panel">
+      <h1 class="logo">VOXEL<span>CRAFT</span></h1>
+      <p class="tagline">A voxel sandbox engine running on WebGL + Web Workers. No plugins.</p>
+      <div class="new-world">
+        <input id="world-name" type="text" placeholder="World name" maxlength="32" />
+        <input id="world-seed" type="text" placeholder="Seed (optional)" maxlength="32" />
+        <select id="render-dist">
+          <option value="6">Render distance: 6 chunks</option>
+          <option value="8" selected>Render distance: 8 chunks</option>
+          <option value="12">Render distance: 12 chunks</option>
+          <option value="16">Render distance: 16 chunks</option>
+        </select>
+        <button id="btn-create">Create New World</button>
+      </div>
+      <div id="world-list"></div>
+      <div class="menu-footer">WASD move · Mouse look · Left click break · Right click place · E inventory · F3 debug · T chat · /commands</div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
